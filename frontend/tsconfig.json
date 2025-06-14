@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react",
+    "target": "esnext",
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "./build",
+    "rootDir": "./"
+  },
+  "exclude": [
+    "build",
+    "node_modules"
+  ],
+  "extends": "expo/tsconfig.base"
+}

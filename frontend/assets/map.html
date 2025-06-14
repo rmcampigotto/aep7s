@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  />
+  <style>
+    html, body, #map { height: 100%; margin: 0; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([-23.55, -46.63], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    let marker = null;
+
+    map.on('click', function (e) {
+      if (marker) {
+        map.removeLayer(marker);
+      }
+      marker = L.marker(e.latlng).addTo(map);
+      if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+        window.ReactNativeWebView.postMessage(JSON.stringify(e.latlng));
+      } else {
+        // fallback para Web: armazenar no localStorage (ou outro método)
+        localStorage.setItem('coords', JSON.stringify(e.latlng));
+      }
+
+    });
+  </script>
+</body>
+</html>
